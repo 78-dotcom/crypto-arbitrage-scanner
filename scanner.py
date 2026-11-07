@@ -35,7 +35,8 @@ clients = {}
 def buy_with_quote(asks, quote_budget):
     remaining = quote_budget
     base = cost = 0.0
-    for price, amount in asks:
+    for level in asks:
+        price, amount = level[0], level[1]
         take_quote = min(remaining, price * amount)
         take_base = take_quote / price
         base += take_base
@@ -49,7 +50,8 @@ def buy_with_quote(asks, quote_budget):
 def sell_base(bids, base_amount):
     remaining = base_amount
     proceeds = 0.0
-    for price, amount in bids:
+    for level in bids:
+        price, amount = level[0], level[1]
         take = min(remaining, amount)
         proceeds += take * price
         remaining -= take
